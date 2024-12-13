@@ -1,0 +1,43 @@
+import random
+
+def chatbot_response(user_input):
+    """
+    Gera uma resposta do chatbot com base na entrada do usuário.
+    
+    Parâmetros:
+        user_input (str): Entrada de texto do usuário.
+    
+    Retorno:
+        str: Resposta gerada pelo chatbot.
+    """
+    responses = {
+        "olá": ["Olá! Como posso te ajudar hoje?", "Oi! O que você gostaria de saber?"],
+        "tudo bem": ["Sim, estou funcionando perfeitamente! E você?", "Sim, tudo bem! E com você?"],
+        "qual o seu nome?": ["Sou um chatbot simples feito em Python!", "Eu sou um chatbot programado para ajudar você."]
+    }
+    
+    user_input = user_input.lower()
+    
+    for key in responses.keys():
+        if key in user_input:
+            return random.choice(responses[key])
+    
+    return "Desculpe, eu ainda não sei responder a isso. Pode tentar de outra forma?"
+
+def main():
+    """
+    Função principal que executa o loop de interação do chatbot.
+    """
+    print("Bem-vindo ao Chatbot em Python!")
+    print("Digite 'sair' para encerrar a conversa.")
+    
+    while True:
+        user_input = input("Você: ")
+        if user_input.lower() == 'sair':
+            print("Chatbot: Tchau! Foi bom falar com você.")
+            break
+        response = chatbot_response(user_input)
+        print("Chatbot:", response)
+
+if __name__ == "__main__":
+    main()
