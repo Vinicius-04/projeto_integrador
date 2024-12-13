@@ -1,4 +1,8 @@
+!pip install unidecode
+
 import random
+import re
+from unidecode import unidecode
 
 def chatbot_response(user_input):
     """
@@ -7,16 +11,29 @@ def chatbot_response(user_input):
     Parâmetros:
         user_input (str): Entrada de texto do usuário.
     
-    Retorno:
+        Retorno:
         str: Resposta gerada pelo chatbot.
     """
     responses = {
-        "olá": ["Olá! Como posso te ajudar hoje?", "Oi! O que você gostaria de saber?"],
-        "tudo bem": ["Sim, estou funcionando perfeitamente! E você?", "Sim, tudo bem! E com você?"],
-        "qual o seu nome?": ["Sou um chatbot simples feito em Python!", "Eu sou um chatbot programado para ajudar você."]
+        "ola": ["Olá! Como posso te ajudar hoje?", "Oi! O que você gostaria de saber?", "Olá! Tudo bem com você?"],
+        "tudo bem": ["Sim, estou funcionando perfeitamente! E você?", "Sim, tudo bem! E com você?", "Tudo certo por aqui! E com você?"],
+        "qual o seu nome": ["Sou um chatbot simples feito em Python!", "Eu sou um chatbot programado para ajudar você.", "Meu nome é Chatbot, prazer em conhecê-lo!"],
+        "quem criou voce": ["Fui desenvolvido para ajudar com respostas simples."],
+        "o que voce faz": ["Eu sou um chatbot e estou aqui para conversar com você!", "Eu posso responder perguntas simples e interagir com você."],
+        "como funciona": ["Eu analiso as palavras da sua mensagem e tento encontrar a melhor resposta.", "Eu sou movido por lógica simples de palavras-chave."],
+        "tchau": ["Tchau! Foi bom falar com você.", "Até mais! Volte sempre.", "Até! Cuide-se."],
+        "sair": ["Tchau! Foi bom falar com você.", "Até mais! Volte sempre.", "Tchau! Cuide-se."],
+        "obrigado": ["De nada! Se precisar, estou aqui.", "Não há de quê!", "Disponha!"],
+        "o que e python": ["Python é uma linguagem de programação.", "Python é uma linguagem de programação usada para desenvolver sistemas, sites e muito mais!"],
+        "me ajude": ["Claro! O que você precisa saber?", "Com certeza! Como posso te ajudar?", "Estou aqui para ajudar! Diga o que precisa."],
+        "voce e humano": ["Não, sou um chatbot, mas tento ser amigável.", "Eu sou um programa de computador, mas estou aqui para ajudar!"],
+        "que horas sao": ["Eu ainda não sei ver as horas.", "Infelizmente, não consigo dizer as horas."],
+        "onde voce mora": ["Eu vivo na nuvem, no código Python que me criou!", "Moro na memória do seu computador, mas às vezes estou online."],
     }
     
-    user_input = user_input.lower()
+    # Normalizar a entrada do usuário: remover caracteres especiais e acentos
+    user_input = unidecode(user_input)  # Remove acentos
+    user_input = re.sub(r'[^\w\s]', '', user_input.lower())  # Remove caracteres especiais e deixa em minúsculo
     
     for key in responses.keys():
         if key in user_input:
@@ -33,11 +50,20 @@ def main():
     
     while True:
         user_input = input("Você: ")
+        
+        if not user_input.strip():  # Verifica se o usuário não digitou nada
+            print("Chatbot: Não entendi, você pode tentar novamente?")
+            continue
+
         if user_input.lower() == 'sair':
             print("Chatbot: Tchau! Foi bom falar com você.")
             break
+        
         response = chatbot_response(user_input)
         print("Chatbot:", response)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nChatbot: Tchau! Foi bom falar com você.")
