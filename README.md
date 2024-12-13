@@ -1,4 +1,4 @@
-**Como Criar um Chatbot Simples em Python com Respostas Pré-Definidas**
+**Como Criar um Chatbot Simples em Python**
 
 ### **Introdução**
 Chatbots são ferramentas excelentes para automação de interações, podendo ser usados ​​em diversos contextos como suporte ao cliente, assistentes pessoais ou até para entretenimento. 
